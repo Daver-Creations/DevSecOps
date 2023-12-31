@@ -74,7 +74,7 @@ class GuessGame():
     def spaces_quote_done(self):
         joined_quote = ''.join(self.spaces_quote)
         if '_' not in joined_quote:
-            time.sleep(3)
+            time.sleep(1)
             os.system('clear')
             instructions = [
                 "Great! you got this one!",

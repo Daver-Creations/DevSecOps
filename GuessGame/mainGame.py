@@ -91,7 +91,7 @@ class GuessGame():
                 instructions = ["Which means you earned a 100 extra points!"]
             else:
                 instructions = ["You might improve next time..."]
-            instructions.append([f"In total you earned {self.score} points- Well Done!"])
+            instructions.append(f"In total you earned {self.score} points- Well Done!")
             self.print_instructions(instructions, 0.5, 0.05)
             return True
         return False

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: big-b-deployment
+  labels:
+    app: big-b
+spec:
+  replicas: 8
+  selector:
+    matchLabels:
+      app: big-b
+  strategy:
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 20% 
+    type: RollingUpdate
+  template:
+    metadata:
+      name: big-b-Pod
+      labels:
+        app: big-b
+    spec:
+      containers:
+        - name: big-b-container
+          image: big-button:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: 600Mi
+              cpu: 500m
+            requests:
+              memory: 400Mi
+              cpu: 100m
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+            initialDelaySeconds: 5 
+            periodSeconds: 10
+            timeoutSeconds: 10 
+          livenessProbe:
+            httpGet:
+              path: /test
+              port: 3000
+            initialDelaySeconds: 5 
+            periodSeconds: 10
+            timeoutSeconds: 10 

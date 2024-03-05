@@ -5,7 +5,7 @@ metadata:
   labels:
     app: big-b
 spec:
-  replicas: 8
+  replicas: 5
   selector:
     matchLabels:
       app: big-b
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: big-b-container
-          image: big-button:latest
+          image: movie-land:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -37,13 +37,13 @@ spec:
             httpGet:
               path: /ready
               port: 3000
-            initialDelaySeconds: 5 
+            initialDelaySeconds: 5
             periodSeconds: 10
-            timeoutSeconds: 10 
+            timeoutSeconds: 10
           livenessProbe:
             httpGet:
               path: /test
               port: 3000
-            initialDelaySeconds: 5 
+            initialDelaySeconds: 5
             periodSeconds: 10
-            timeoutSeconds: 10 
+            timeoutSeconds: 10

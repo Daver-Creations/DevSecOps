@@ -1,0 +1,13 @@
+kubectl apply -f k8s-ap/big-button-deployment.yml
+
+kubectl get pods
+kubectl get deployment
+kubectl logs big-b-deployment-759547b88b-bwvwp
+
+kubectl apply -f k8s-ap/big-button-service.yml
+
+kubectl get pods
+kubectl get service
+kubectl get deployment
+
+minikube service big-b-service --url

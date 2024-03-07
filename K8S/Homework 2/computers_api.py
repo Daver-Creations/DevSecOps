@@ -1,6 +1,7 @@
 from flask import Flask, request
 import json
 import json_util
+from urllib import request
 
 
 app = Flask(__name__)
@@ -8,6 +9,18 @@ app = Flask(__name__)
 FileName = "computers_list.json"
 ListFile = json_util.JsonUtil.open_file_in_same_directory(FileName)
 ComputersList = json.load(ListFile)
+
+@app.get('/test')
+def test_api():
+    return 200
+
+@app.get('/healthy')
+def is_healthy():
+    try:
+        request.urlopen('https://www.google.com/', timeout=1)
+        return '200'
+    except: 
+        return '400'
 
 @app.get('/computers')
 def get_computers_list():

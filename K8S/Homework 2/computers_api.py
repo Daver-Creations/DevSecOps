@@ -12,7 +12,11 @@ ComputersList = json.load(ListFile)
 
 @app.get('/test')
 def test_api():
-    return 200
+    return '200'
+
+@app.get('/ready')
+def ready_api():
+    return '200'
 
 @app.get('/healthy')
 def is_healthy():
@@ -52,4 +56,6 @@ def delete_by_id(id):
             return {"removed": id}
     return {"id not found": id}
 
-app.run(host='0.0.0.0', port=5000, debug=True) #run the app (port=5000,host='0.0.0.0.0')
+if __name__ == "__main__":
+    app.run(debug=True)
+#app.run(host='0.0.0.0', port=5000, debug=True) #run the app (port=5000,host='0.0.0.0.0')

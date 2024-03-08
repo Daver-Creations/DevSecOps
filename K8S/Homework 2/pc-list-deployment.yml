@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  labels:
+    app: f-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: f-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 20% 
+    type: RollingUpdate
+  template:
+    metadata:
+      name: f-app-Pod
+      labels:
+        app: f-app
+    spec:
+      containers:
+        - name: flask
+          image: flask-app-image:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              memory: 1000Mi
+              cpu: 900m
+            requests:
+              memory: 800Mi
+              cpu: 250m
+          readinessProbe:
+            httpGet:
+              path: /test
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /test
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 10

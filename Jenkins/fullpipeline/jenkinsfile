@@ -10,6 +10,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'DockerCred', usernameVariable: 'USERNAME', passwordVariable: 'PASS')]){
                     sh 'echo username: ${USERNAME}'
                     sh 'echo password: ${PASS}'
+                    sh 'docker login --username ${USERNAME} --password ${PASS}'
                 }
                 retry(3) {
                     sleep(10)

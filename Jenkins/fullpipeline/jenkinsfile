@@ -1,19 +1,22 @@
 pipeline {
     agent any
-    // parameters {
-    //      environment {
-    //         IMAGE_NAME = 'myhttpd'
-    //         VERSION = "v${BUILD_ID}.${BUILD_NUMBER}"    // v12.13
-    //      }
-    // }
+    environment {
+        IMAGE_NAME = 'myhttpd'
+        VERSION = "v${BUILD_ID}.${BUILD_NUMBER}"    // v12.13
+    }
     stages {
         stage('Verify Docker') {
             steps {
-                retry(3) {
-                    echo "Verifying Docker"
+                withCredentials([usernamePassword(credentialsId: 'DockerCred', usernameVariable: 'USERNAME', passwordVariable: 'PASS')]){
+                    sh 'echo username: ${USERNAME}'
+                    sh 'echo password: ${PASS}'
                 }
-                sleep(10)
-                sh "docker --version"
+                retry(3) {
+                    sleep(10)
+                    echo "Verifying Docker"
+                    sh "docker --version"
+                }
+                
             }
         }
         stage('Verify Internet') {

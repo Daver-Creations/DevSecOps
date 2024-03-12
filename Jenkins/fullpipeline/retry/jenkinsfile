@@ -1,11 +1,11 @@
 pipeline {
     agent any
-    parameters {
-         environment {
-            IMAGE_NAME = 'myhttpd'
-            VERSION = "v${BUILD_ID}.${BUILD_NUMBER}"    // v12.13
-         }
-    }
+    // parameters {
+    //      environment {
+    //         IMAGE_NAME = 'myhttpd'
+    //         VERSION = "v${BUILD_ID}.${BUILD_NUMBER}"    // v12.13
+    //      }
+    // }
     stages {
         stage('Verify Docker') {
             steps {

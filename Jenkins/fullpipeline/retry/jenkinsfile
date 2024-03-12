@@ -4,8 +4,9 @@ pipeline {
         stage('Verify Docker') {
             steps {
                 retry(3) {
-                    eho "Verifying Docker"
+                    echo "Verifying Docker"
                 }
+                sleep(10)
                 sh "docker --version"
             }
         }

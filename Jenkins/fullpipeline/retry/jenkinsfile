@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+        stage('Verify Docker') {
+            steps {
+                retry(3) {
+                    eho "Verifying Docker"
+                }
+                sh "docker --version"
+            }
+        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         sh ""
+        //     }
+        // }
+    }
+}

@@ -19,7 +19,7 @@ pipeline {
         stage('Verify Internet') {
             steps {
                 retry(3) {
-                    timeout(time: 3, units: 'SECONDS') {
+                    timeout(time: 3, unit: 'SECONDS') {
                         sh 'ping -c 6 8.8.8.8'
                     }
                 }

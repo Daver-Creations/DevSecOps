@@ -5,36 +5,39 @@ pipeline {
         VERSION = "v${BUILD_ID}.${BUILD_NUMBER}"    // v12.13
     }
     stages {
-        stage('Verify Docker') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'DockerCred', usernameVariable: 'USERNAME', passwordVariable: 'PASS')]){
-                    sh 'echo username: ${USERNAME}'
-                    sh 'echo password: ${PASS}'
-                    // sh 'docker login --username ${USERNAME} --password ${PASS}'
-                }
-                retry(3) {
-                    sleep(10)
-                    echo "Verifying Docker"
-                    sh "docker --version"
-                }
-                
-            }
-        }
-        stage('Verify Internet') {
-            steps {
-                retry(3) {
-                    timeout(time: 3, unit: 'SECONDS') {
-                        sh 'ping -c 6 8.8.8.8'
+        stage('Parallel Verifications') {
+            parallel {
+                stage('Verify Docker') {
+                    steps {
+                        withCredentials([usernamePassword(credentialsId: 'DockerCred', usernameVariable: 'USERNAME', passwordVariable: 'PASS')]){
+                            sh 'echo username: ${USERNAME}'
+                            sh 'echo password: ${PASS}'
+                            // sh 'docker login --username ${USERNAME} --password ${PASS}'
+                        }
+                        retry(3) {
+                            sleep(10)
+                            echo "Verifying Docker"
+                            sh "docker --version"
+                        }
                     }
                 }
+                stage('Verify Internet') {
+                    steps {
+                        retry(3) {
+                            timeout(time: 3, unit: 'SECONDS') {
+                                sh 'ping -c 6 8.8.8.8'
+                            }
+                        }
+                    }
+                }
+                // stage('Build Docker Image') {
+                //     steps {
+                //         dir('Task') {
+
+                //         }
+                //     }
+                // }
             }
         }
-        // stage('Build Docker Image') {
-        //     steps {
-        //         dir('Task') {
-
-        //         }
-        //     }
-        // }
     }
 }

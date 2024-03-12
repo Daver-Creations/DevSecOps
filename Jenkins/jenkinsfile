@@ -1,0 +1,13 @@
+pipeline{
+    agent any
+    // parameters{
+    //     choice(name: PACKAGE)
+    // }
+    stages{
+        stage("Docker Verify"){
+            steps{
+                sh 'docker --version'
+            }
+        }
+    }
+}

@@ -1,24 +1,24 @@
-pipeline{
+pipeline {
     agent any
     // parameters{
     //     choice(name: PACKAGE, description: 'blah blah')
     // }
-    stages{
-        stage("Docker Verify"){
+    stages {
+        stage("Docker Verify") {
             steps{
-                echo "Verifying Docker"
+                echo 'Verifying Docker'
                 sh 'docker --version'
             }
         }
-        stage("Git Verify"){
+        stage("Git Verify") {
             steps{
-                echo "Verifying Git"
+                echo 'Verifying Git'
                 sh 'git --version'
             }
         }
-        stage("Python Verify"){
+        stage("Python Verify") {
             steps{
-                echo "Verifying Python"
+                echo 'Verifying Python'
                 sh 'python3 --version'
             }
         }

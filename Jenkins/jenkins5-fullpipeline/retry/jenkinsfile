@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+        stage('Verify Docker') {
+            steps {
+                echo "Verifying Docker"
+                sh "docker --version"
+            }
+        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         sh ""
+        //     }
+        // }
+    }
+}

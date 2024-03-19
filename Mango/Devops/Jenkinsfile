@@ -1,0 +1,28 @@
+pipeline{
+    agent any
+    stages{
+        stage("clone project"){
+            steps{
+                script{
+                    sh 'git clone '
+                }
+            }
+        }
+
+        stage("build docker image"){
+            steps{
+                script{
+                    sh 'docker build -t ${IMAGE_NAME} .'
+                }
+            }
+        }
+
+        stage("push to ecr"){
+            steps{
+                script{
+                    sh 'docker images'
+                }
+            }
+        }
+    }
+}

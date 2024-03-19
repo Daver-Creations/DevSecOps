@@ -4,12 +4,13 @@ pipeline{
         CODE_REPO = "https://github.com/Daver-Creations/DevSecOps.git"
         CODE_DIR = "Mango"
         IMAGE_NAME = "mango"
-        IMAGE_TAG = "v${IMAGE_NAME}"
+        IMAGE_TAG = "v${IMAGE_NUMBER}"
     }
     stages{
         stage("clone project"){
             steps{
                 script{
+                    sh "rm -fr ${CODE_DIR}"
                     sh 'git clone ${CODE_REPO}'
                 }
             }

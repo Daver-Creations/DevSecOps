@@ -4,7 +4,7 @@ pipeline{
         stage("clone project"){
             steps{
                 script{
-                    sh 'git clone '
+                    sh 'git clone https://github.com/Daver-Creations/DevSecOps.git'
                 }
             }
         }

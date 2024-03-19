@@ -1,10 +1,16 @@
 pipeline{
     agent any
+    parameters{
+        CODE_REPO = "https://github.com/Daver-Creations/DevSecOps.git"
+        CODE_DIR = "Mango"
+        IMAGE_NAME = "mango"
+        IMAGE_TAG = "v${IMAGE_NAME}"
+    }
     stages{
         stage("clone project"){
             steps{
                 script{
-                    sh 'git clone https://github.com/Daver-Creations/DevSecOps.git'
+                    sh 'git clone ${CODE_REPO}'
                 }
             }
         }
@@ -12,6 +18,7 @@ pipeline{
         stage("build docker image"){
             steps{
                 script{
+                    dir("${CODE_DIR}")
                     sh 'docker build -t ${IMAGE_NAME} .'
                 }
             }
